@@ -168,7 +168,9 @@ General Out-Of-Box operation is as described below:
      
      ![URL Hosted Credentials](images/wifiCredentialsWeb.png)
 
-     + This will launch the URL: https://avr-iot.com/device/{DeviceId} The file produced with entered credentials is produced through the WINC module, and no information is shared through the internet. Drag and Drop, or Copy and Paste the **WIFI.CFG** file onto the **CURIOSITY** device to load new credentials onto the IoT demonstration board.
+     + This will launch the URL: https://avr-iot.com/aws/{ThingName}. 
+     + After entering credentials, the **.CFG** file is produced through the web browser. No information is shared through the internet. 
+     + Drag and Drop, or Copy and Paste the **WIFI.CFG** file onto the **CURIOSITY** device to load new credentials onto the IoT demonstration board.
      
      ![WiFi Config](images/wifiNotepad.png)     
      
