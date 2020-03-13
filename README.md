@@ -81,8 +81,8 @@ Devices: \| **ATmega4808(MCU)** \| **WINC1510(Wi-Fi®)** \| **ECC608(CryptoAuthL
      + Because **Toggle** manipulates the **desired** state; the state **must** be changed to observe the behavior. 
 
    14. If desired, additional basic messaging can be seen to a connected Serial Terminal at the expected 9600 baud rate. 
-
-      ![Delta Subscribe Message](images/DeltaToggle.png)
+       
+	   ![DeltaSubTerminalMessage](images/DeltaToggle.png)
 
 ## Requirements
 
