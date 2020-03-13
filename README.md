@@ -82,7 +82,7 @@ Devices: \| **ATmega4808(MCU)** \| **WINC1510(Wi-Fi®)** \| **ECC608(CryptoAuthL
 
    14. If desired, additional basic messaging can be seen to a connected Serial Terminal at the expected 9600 baud rate. 
        
-	   ![DeltaSubTerminalMessage](images/DeltaToggle.png)
+	   ![DeltaSubTerminalMessage](images/deltaToggleSubscribe.png)
 
 ## Requirements
 
