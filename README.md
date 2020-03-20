@@ -45,7 +45,7 @@ Devices: \| **ATmega4808(MCU)** \| **WINC1510(Wi-Fi®)** \| **ECC608(CryptoAuthL
   6. After successfully establishing MQTT connection, the **YELLOW LED** will blink. (250 mSec)
      + Indicating data exchanged between the End-Device (AVR-IoT), and BROKER (AWS). (every (1) Sec)
 
-  7. Connect to the www.avr-iot.com/aws/**{thingName}**, or www.pic-iot.com/aws/**{thingName}**, device specific website to view publish/subscribe data. 
+  7. Connect to the www.avr-iot.com/avr-iot/aws/**{thingName}** website to view publish/subscribe data. 
      + **{thingName}** is the unique identifier for the development board.
      + This page can be also be found via launching the **CLICK-ME.HTM** file on the **CURIOSITY** device.
      + This page can be also be found by scanning the QR code on the back of the development board. 
@@ -371,7 +371,7 @@ General Out-Of-Box operation is as described below:
 **wifi Security Options:**
 + 0 : Open - Password and Security option parameters are not required.
 + 1 : WPA/WPA2 - Security Option Parameter not required.
-+ 2: WEP -
++ 2: WEP - Network Name, Password, and Security Option (3) Parameter are required when connecting to a WEP network. For example, ‘wifi MCHP.IOT,microchip,3’.
 
 **debug Debug Options:**
 Type in a number from 0 to 4; for the number of debug messages with 0 - the result is printing no messages and with 4 for printing all the messages.
