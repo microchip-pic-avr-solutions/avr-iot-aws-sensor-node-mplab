@@ -54,7 +54,7 @@ SOFTWARE.
 #include "config/cloud_config.h"
 
 
-//Flash location to read thing ID from winc
+//Flash location to read thing Name from winc
 #define THING_NAME_FLASH_OFFSET (M2M_TLS_SERVER_FLASH_OFFSET + M2M_TLS_SERVER_FLASH_SIZE - FLASH_PAGE_SZ) 
 #define AWS_ENDPOINT_FLASH_OFFSET (THING_NAME_FLASH_OFFSET - FLASH_PAGE_SZ)
 #define CLOUD_WIFI_TASK_INTERVAL        50L
@@ -137,14 +137,14 @@ void wifi_init(void (*funcPtr)(uint8_t), uint8_t mode) {
    timeout_create(&wifiHandlerTimer, CLOUD_WIFI_TASK_INTERVAL);
 }
 
-void wifi_readThingIdFromWinc(void)
+void wifi_readThingNameFromWinc(void)
 {
     int8_t status;
     status =  m2m_wifi_download_mode();
     
     if(status != M2M_SUCCESS)
     {
-        debug_printError("WINC download mode failed - Thing ID cannot be obtained");
+        debug_printError("WINC download mode failed - Thing Name cannot be obtained");
     }
     else
     {
@@ -154,11 +154,11 @@ void wifi_readThingIdFromWinc(void)
         if(status != M2M_SUCCESS || cid[0] == 0xFF || cid[MQTT_CID_LENGTH-1] == 0xFF)
         {
             sprintf(cid, "%s", AWS_THING_ID); 
-            debug_printer(SEVERITY_NONE, LEVEL_ERROR, "Thing ID is not present, error type %d, user defined thing ID is used",status);
+            debug_printIoTAppMsg("Thing Name is not present, error type %d, user defined thing ID is used",status);
         }
         else 
         {
-            debug_printer(SEVERITY_NONE, LEVEL_NORMAL,"Thing ID read from the device is %s",cid);
+            debug_printIoTAppMsg("Thing Name read from the device is %s",cid);
         }
     }
 }
@@ -181,18 +181,18 @@ void wifi_readAWSEndpointFromWinc(void)
         if(status != M2M_SUCCESS || awsEndpoint[0] == 0xFF || awsEndpoint[AWS_ENDPOINT_LEN - 1] == 0xFF)
         {
             sprintf(awsEndpoint, "%s", CFG_MQTT_HOSTURL); 
-            debug_printer(SEVERITY_NONE, LEVEL_NORMAL, "Custom endpoint not present, using the default endpoint which the hardware was pre-provisioned for : %s", awsEndpoint);
+            debug_printIoTAppMsg("Custom endpoint not present, using the default endpoint which the hardware was pre-provisioned for : %s", awsEndpoint);
         }
         else 
         {
             #if USE_MCHP_AWS_ENDPOINT 
             {
                 sprintf(awsEndpoint, "%s", CFG_MQTT_HOSTURL);
-                debug_printer(SEVERITY_NONE, LEVEL_NORMAL,"Using the default endpoint which the hardware was pre-provisioned for : %s", awsEndpoint);
+                debug_printIoTAppMsg("Using the default endpoint which the hardware was pre-provisioned for : %s", awsEndpoint);
             }
             #else
             {
-                debug_printer(SEVERITY_NONE, LEVEL_NORMAL,"Using the endpoint defined for custom AWS account: %s", awsEndpoint);
+                debug_printIoTAppMsg("Using the endpoint defined for custom AWS account: %s", awsEndpoint);
             }
             #endif
         }
