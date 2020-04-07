@@ -343,6 +343,11 @@ uint32_t MAIN_dataTask(void *payload)
             sendToCloud();
         }
     } 
+    else
+    {
+        ledState.Full2Sec = LED_OFF_STATIC;
+        LED_modeYellow(ledState);        
+    }
     
     // Blue LED
     if (!shared_networking_params.amConnectingAP)
@@ -359,6 +364,11 @@ uint32_t MAIN_dataTask(void *payload)
             if(CLOUD_checkIsConnected())
             {
                 ledState.Full2Sec = LED_ON_STATIC;
+                LED_modeGreen(ledState);
+            }
+            else if(shared_networking_params.haveDataConnection == 1)
+            {
+                ledState.Full2Sec = LED_BLINK;
                 LED_modeGreen(ledState);
             }
         }

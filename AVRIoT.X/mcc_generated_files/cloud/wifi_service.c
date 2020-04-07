@@ -153,7 +153,7 @@ void wifi_readThingNameFromWinc(void)
 	    status = spi_flash_read(cid, THING_NAME_FLASH_OFFSET,MQTT_CID_LENGTH);        
         if(status != M2M_SUCCESS || cid[0] == 0xFF || cid[MQTT_CID_LENGTH-1] == 0xFF)
         {
-            sprintf(cid, "%s", AWS_THING_ID); 
+            sprintf(cid, "%s", AWS_THING_NAME); 
             debug_printIoTAppMsg("Thing Name is not present, error type %d, user defined thing ID is used",status);
         }
         else 
