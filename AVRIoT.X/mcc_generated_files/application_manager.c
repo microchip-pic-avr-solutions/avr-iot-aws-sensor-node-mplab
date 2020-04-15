@@ -141,8 +141,8 @@ static void receivedFromCloud(uint8_t *topic, uint8_t *payload)
             holdCount = 2;
         }
     }
-    debug_printer(SEVERITY_NONE, LEVEL_NORMAL, "topic: %s", topic);
-    debug_printer(SEVERITY_NONE, LEVEL_NORMAL, "payload: %s", payload);
+    debug_printIoTAppMsg("topic: %s", topic);
+    debug_printIoTAppMsg("payload: %s", payload);
     updateDeviceShadow();
 }
 
@@ -191,7 +191,7 @@ void application_init()
     CLI_setdeviceId(attDeviceID);
 #endif   
     debug_setPrefix(attDeviceID);     
-    wifi_readThingIdFromWinc();
+    wifi_readThingNameFromWinc();
     wifi_readAWSEndpointFromWinc();
     timeout_create(&initDeviceShadowTimer, DEVICE_SHADOW_INIT_INTERVAL );    
     // Blocking debounce
@@ -343,6 +343,11 @@ uint32_t MAIN_dataTask(void *payload)
             sendToCloud();
         }
     } 
+    else
+    {
+        ledState.Full2Sec = LED_OFF_STATIC;
+        LED_modeYellow(ledState);        
+    }
     
     // Blue LED
     if (!shared_networking_params.amConnectingAP)
@@ -359,6 +364,11 @@ uint32_t MAIN_dataTask(void *payload)
             if(CLOUD_checkIsConnected())
             {
                 ledState.Full2Sec = LED_ON_STATIC;
+                LED_modeGreen(ledState);
+            }
+            else if(shared_networking_params.haveDataConnection == 1)
+            {
+                ledState.Full2Sec = LED_BLINK;
                 LED_modeGreen(ledState);
             }
         }
@@ -393,7 +403,6 @@ static void  wifiConnectionStateChanged(uint8_t status)
     // If we have no AP access we want to retry
     if (status != 1)
     {
-        // Restart the WIFI module if we get disconnected from the WiFi Access Point (AP)
-        CLOUD_setInitFlag();
+        CLOUD_reset();
     } 
 }

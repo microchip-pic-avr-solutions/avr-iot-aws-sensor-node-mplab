@@ -70,13 +70,14 @@ static uint8_t index = 0;
 static bool commandTooLongFlag = false;
 
 const char * const cli_version_number             = "1.0";
-const char * const firmware_version_number        = "2.0.2";
+
+const char * const firmware_version_number        = "3.0.0";
 
 static void command_received(char *command_text);
 static void reset_cmd(char *pArg);
 static void reconnect_cmd(char *pArg);
 static void set_wifi_auth(char *ssid_pwd_auth);
-static void get_thing_id(char *pArg);
+static void get_thing_name(char *pArg);
 static void get_device_id(char *pArg);
 static void get_cli_version(char *pArg);
 static void get_firmware_version(char *pArg);
@@ -100,7 +101,7 @@ const struct cmd commands[] =
     { "reset",       reset_cmd},
     { "reconnect",   reconnect_cmd },
     { "wifi",        set_wifi_auth },
-    { "thing",       get_thing_id },
+    { "thing",       get_thing_name },
     { "device",      get_device_id },
     { "cli_version", get_cli_version },
     { "version",     get_firmware_version },
@@ -233,9 +234,9 @@ static void set_wifi_auth(char *ssid_pwd_auth)
         {
             MQTT_Close(MQTT_GetClientConnectionInfo());
         }        
-        if (shared_networking_params.haveSocket)    
+        if (shared_networking_params.haveDataConnection)    
         {   // Disconnect from Socket if active
-            shared_networking_params.haveSocket = 0;
+            shared_networking_params.haveDataConnection = 0;
             MQTT_Disconnect(MQTT_GetClientConnectionInfo());
         } 
 		wifi_disconnectFromAp();
@@ -261,7 +262,7 @@ static void reconnect_cmd(char *pArg)
     LED_modeRed(ledState);
     ledState.Full2Sec = LED_BLINK;
     LED_modeGreen(ledState);
-    shared_networking_params.haveSocket = 0;
+    shared_networking_params.haveDataConnection = 0;
     MQTT_Disconnect(MQTT_GetClientConnectionInfo());
     printf("OK\r\n");
 }
@@ -288,7 +289,7 @@ static void set_debug_level(char *pArg)
    }
 }
 
-static void get_thing_id(char *pArg)
+static void get_thing_name(char *pArg)
 {
     (void)pArg;
         
@@ -298,7 +299,7 @@ static void get_thing_id(char *pArg)
     }
     else
     {
-        printf("Error getting Thing ID.\r\n\4");
+        printf("Error getting Thing Name.\r\n\4");
     }
 }
 
