@@ -174,8 +174,8 @@
         <itemPath>mcc_generated_files/sensors_handling.h</itemPath>
         <itemPath>mcc_generated_files/time_service.h</itemPath>
         <itemPath>mcc_generated_files/CryptoAuthenticationLibrary/cryptoauthlib.h</itemPath>
-        <itemPath>mcc_generated_files/CryptoAuthenticationLibrary/CryptoAuth_init.h</itemPath>
-        <itemPath>mcc_generated_files/CryptoAuthenticationLibrary/cryptoauthlib_config.h</itemPath>
+        <itemPath>mcc_generated_files/CryptoAuth_init.h</itemPath>
+        <itemPath>mcc_generated_files/cryptoauthlib_config.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -349,7 +349,7 @@
         <itemPath>mcc_generated_files/led.c</itemPath>
         <itemPath>mcc_generated_files/sensors_handling.c</itemPath>
         <itemPath>mcc_generated_files/time_service.c</itemPath>
-        <itemPath>mcc_generated_files/CryptoAuthenticationLibrary/CryptoAuth_init.c</itemPath>
+        <itemPath>mcc_generated_files/CryptoAuth_init.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>
