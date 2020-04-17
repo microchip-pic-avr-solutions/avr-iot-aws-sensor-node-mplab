@@ -32,9 +32,10 @@
 #include "../mqtt/mqtt_packetTransfer_interface.h"
 #include "../config/IoT_Sensor_Node_config.h"
 #include "../debug_print.h"
+#include "../config/cloud_config.h"
 
-char cid[MQTT_CID_LENGTH];
 char awsEndpoint[AWS_ENDPOINT_LEN];
+char cid[MQTT_CID_LENGTH];
 static publishReceptionHandler_t *publishRecvInfo;
 
 

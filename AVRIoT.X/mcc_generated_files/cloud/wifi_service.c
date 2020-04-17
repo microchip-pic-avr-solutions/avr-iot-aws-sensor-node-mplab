@@ -163,11 +163,10 @@ void wifi_readThingNameFromWinc(void)
     }
 }
 
-void wifi_readAWSEndpointFromWinc(void)
+void wifi_readAWSEndpointFromWinc(char* readFromWinc)
 {
     int8_t status;
     
-    memset(awsEndpoint, 0, AWS_ENDPOINT_LEN);
     status =  m2m_wifi_download_mode();
     
     if(status != M2M_SUCCESS)
@@ -177,28 +176,21 @@ void wifi_readAWSEndpointFromWinc(void)
     else
     {        
         debug_printInfo("WINC in download mode");
-        status = spi_flash_read(awsEndpoint, AWS_ENDPOINT_FLASH_OFFSET, AWS_ENDPOINT_LEN);        
-        if(status != M2M_SUCCESS || awsEndpoint[0] == 0xFF || awsEndpoint[AWS_ENDPOINT_LEN - 1] == 0xFF)
+        status = spi_flash_read(readFromWinc, AWS_ENDPOINT_FLASH_OFFSET, AWS_ENDPOINT_LEN);
+        if(status != M2M_SUCCESS )
         {
-            sprintf(awsEndpoint, "%s", CFG_MQTT_HOSTURL); 
-            debug_printIoTAppMsg("Custom endpoint not present, using the default endpoint which the hardware was pre-provisioned for : %s", awsEndpoint);
+            debug_printError("Error reading AWS Endpoint from WINC");
         }
-        else 
+        else if(*readFromWinc == 0xFF)
         {
-            #if USE_MCHP_AWS_ENDPOINT 
-            {
-                sprintf(awsEndpoint, "%s", CFG_MQTT_HOSTURL);
-                debug_printIoTAppMsg("Using the default endpoint which the hardware was pre-provisioned for : %s", awsEndpoint);
-            }
-            #else
-            {
-                debug_printIoTAppMsg("Using the endpoint defined for custom AWS account: %s", awsEndpoint);
-            }
-            #endif
+            debug_printIoTAppMsg("AWS Endpoint is not present in WINC, either re-provision or microchip AWS sandbox endpoint will be used");
+        }
+        else
+        {
+            debug_printIoTAppMsg("AWS Endpoint read from WINC is %s",readFromWinc);  
         }
     }
 }
-
 
 bool wifi_connectToAp(uint8_t passed_wifi_creds)
 {
@@ -359,7 +351,7 @@ static void wifiCallback(uint8_t msgType, void *pMsg)
         case M2M_WIFI_REQ_DHCP_CONF:
         {
             // Now we are really connected, we have AP and we have DHCP, start off the MQTT host lookup now, response in dnsHandler
-            if (gethostbyname((const char*)CFG_MQTT_HOSTURL) == M2M_SUCCESS)
+            if (gethostbyname((const char*)awsEndpoint) == M2M_SUCCESS)
             {
 				if (shared_networking_params.amDisconnecting == 1)
 				{

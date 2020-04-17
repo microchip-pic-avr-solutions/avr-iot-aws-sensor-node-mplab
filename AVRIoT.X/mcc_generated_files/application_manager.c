@@ -36,6 +36,7 @@ SOFTWARE.
 #include "config/IoT_Sensor_Node_config.h"
 #include "config/conf_winc.h"
 #include "config/mqtt_config.h"
+#include "config/cloud_config.h"
 #include "cloud/cloud_service.h"
 #include "cloud/mqtt_service.h"
 #include "cloud/crypto_client/crypto_client.h"
@@ -60,6 +61,7 @@ SOFTWARE.
 #define TOGGLE_OFF 0
 #define DEVICE_SHADOW_INIT_INTERVAL 1000L
 #define UPDATE_DEVICE_SHADOW_BUFFER_TIME (2)
+#define AWS_MCHP_SANDBOX_URL "a1gqt8sttiign3.iot.us-east-2.amazonaws.com"
 static uint8_t toggleState = 0;
 
 // This will contain the device ID, before we have it this dummy value is the init value which is non-0
@@ -80,6 +82,11 @@ static void setToggleState(uint8_t passedToggleState);
 static uint8_t getToggleState(void);
 uint32_t initDeviceShadow(void *payload);
 timerStruct_t initDeviceShadowTimer = {initDeviceShadow};
+#if USE_CUSTOM_ENDPOINT_URL
+void loadCustomAWSEndpoint(void);
+#else
+void loadDefaultAWSEndpoint(void);
+#endif
 
 // This will get called every 1 second only while we have a valid Cloud connection
 static void sendToCloud(void)
@@ -191,8 +198,12 @@ void application_init()
     CLI_setdeviceId(attDeviceID);
 #endif   
     debug_setPrefix(attDeviceID);     
+#if USE_CUSTOM_ENDPOINT_URL
+    loadCustomAWSEndpoint();
+#else
+    loadDefaultAWSEndpoint();
+#endif  
     wifi_readThingNameFromWinc();
-    wifi_readAWSEndpointFromWinc();
     timeout_create(&initDeviceShadowTimer, DEVICE_SHADOW_INIT_INTERVAL );    
     // Blocking debounce
     for(i = 0; i < SW_DEBOUNCE_INTERVAL; i++)
@@ -314,6 +325,26 @@ static void updateDeviceShadow(void)
         CLOUD_publishData((uint8_t*)topic,(uint8_t*)payload, payloadLength); 
     }
 }
+
+#if USE_CUSTOM_ENDPOINT_URL
+void loadCustomAWSEndpoint(void)
+{
+    memset(awsEndpoint, '\0', AWS_ENDPOINT_LEN);
+    sprintf(awsEndpoint, "%s", CFG_MQTT_HOSTURL);
+    debug_printIoTAppMsg("Custom AWS Endpoint is used : %s", awsEndpoint);
+}
+#else
+void loadDefaultAWSEndpoint(void)
+{
+    memset(awsEndpoint, '\0', AWS_ENDPOINT_LEN);
+    wifi_readAWSEndpointFromWinc(awsEndpoint);
+    if(awsEndpoint[0] == 0xFF)
+    {
+        sprintf(awsEndpoint, "%s", AWS_MCHP_SANDBOX_URL);
+        debug_printIoTAppMsg("Using the AWS Sandbox endpoint : %s", awsEndpoint);
+    }
+}
+#endif
 
 // This scheduler will check all tasks and timers that are due and service them
 void runScheduler(void)
