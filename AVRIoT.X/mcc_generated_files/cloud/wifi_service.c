@@ -350,7 +350,8 @@ static void wifiCallback(uint8_t msgType, void *pMsg)
         
         case M2M_WIFI_REQ_DHCP_CONF:
         {
-            // Now we are really connected, we have AP and we have DHCP, start off the MQTT host lookup now, response in dnsHandler
+            // Now we are really connected, we have AP and we have DHCP, start off the MQTT host lookup now, response in 
+			
             if (gethostbyname((const char*)awsEndpoint) == M2M_SUCCESS)
             {
 				if (shared_networking_params.amDisconnecting == 1)
