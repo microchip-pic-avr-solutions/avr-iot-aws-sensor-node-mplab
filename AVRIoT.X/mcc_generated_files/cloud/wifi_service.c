@@ -163,7 +163,7 @@ void wifi_readThingNameFromWinc(void)
     }
 }
 
-void wifi_readAWSEndpointFromWinc(char* readFromWinc)
+void wifi_readAWSEndpointFromWinc(void)
 {
     int8_t status;
     
@@ -176,18 +176,19 @@ void wifi_readAWSEndpointFromWinc(char* readFromWinc)
     else
     {        
         debug_printInfo("WINC in download mode");
-        status = spi_flash_read(readFromWinc, AWS_ENDPOINT_FLASH_OFFSET, AWS_ENDPOINT_LEN);
+
+        status = spi_flash_read(awsEndpoint, AWS_ENDPOINT_FLASH_OFFSET, AWS_ENDPOINT_LEN);
         if(status != M2M_SUCCESS )
         {
             debug_printError("Error reading AWS Endpoint from WINC");
         }
-        else if(*readFromWinc == 0xFF)
+        else if(awsEndpoint == 0xFF)
         {
             debug_printIoTAppMsg("AWS Endpoint is not present in WINC, either re-provision or microchip AWS sandbox endpoint will be used");
         }
         else
         {
-            debug_printIoTAppMsg("AWS Endpoint read from WINC is %s",readFromWinc);  
+            debug_printIoTAppMsg("AWS Endpoint read from WINC is %s",awsEndpoint);  
         }
     }
 }

@@ -337,7 +337,7 @@ void loadCustomAWSEndpoint(void)
 void loadDefaultAWSEndpoint(void)
 {
     memset(awsEndpoint, '\0', AWS_ENDPOINT_LEN);
-    wifi_readAWSEndpointFromWinc(awsEndpoint);
+    wifi_readAWSEndpointFromWinc();
     if(awsEndpoint[0] == 0xFF)
     {
         sprintf(awsEndpoint, "%s", AWS_MCHP_SANDBOX_URL);
