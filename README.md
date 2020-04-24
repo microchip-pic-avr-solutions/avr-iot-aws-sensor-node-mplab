@@ -386,6 +386,25 @@ The AVR-IoT development board can be accessed through a Wi-Fi access point enabl
 
 ![Soft AP Credentials](images/softApCredentials.png)
 
+### AWS Multi Account Registration
+This [feature](https://pages.awscloud.com/iot-core-early-registration.html) is in Beta phase. The user can leverage upon the [provisioning tool](http://ww1.microchip.com/downloads/en/DeviceDoc/iotprovision-1.0.90.zip) to register existing AVR-IoT board
+in a personal account. More information on using the provisioning tool can be found in README.txt and iotprovsion.md which are part of the tool.
+
+By default the AWS endpoint URL is read from WINC's memory. Upon using the provisioning tool the Microchip
+sandbox AWS endpoint URL present in WINC will be replaced by the personal account AWS endpoint URL. In those
+boards which do not carry the AWS endpoint URL in WINC's memory the Microchip Sandbox AWS endpoint URL provided
+in the macro ``AWS_MCHP_SANDBOX_URL`` will be used.
+
+The firmware supports the use of custom AWS endpoint URL. This feature can be enabled/disabled through the macro 
+``USE_CUSTOM_ENDPOINT_URL`` in "cloud_cofnig.h". Enabling this feature will ensure the AWS endpoint defined by the 
+macro ``CFG_MQTT_HOSTURL`` in "mqtt_config.h" is used instead of the one present in WINC's memory for establishing 
+the connection with the cloud. To switch to the usage of default AWS endpoint present in WINC's memory, disable 
+this custom AWS endpoint URL by setting the macro ``USE_CUSTOM_ENDPOINT_URL`` to '0'.
+
+In either case of using the default or custom option,the AWS endpoint URL being used can be observed on the serial 
+terminal right before the board's start up LED cycle. Make sure to have the ``ENABLE_DEBUG_IOT_APP_MSGS`` enabled
+to get the IoT application layer specific logs printed out on the terminal,
+
 ---
 
 ## Software Features
