@@ -396,7 +396,7 @@ boards which do not carry the AWS endpoint URL in WINC's memory the Microchip Sa
 in the macro ``AWS_MCHP_SANDBOX_URL`` will be used.
 
 The firmware supports the use of custom AWS endpoint URL. This feature can be enabled/disabled through the macro 
-``USE_CUSTOM_ENDPOINT_URL`` in "cloud_cofnig.h". Enabling this feature will ensure the AWS endpoint defined by the 
+``USE_CUSTOM_ENDPOINT_URL`` in "cloud_config.h". Enabling this feature will ensure the AWS endpoint defined by the 
 macro ``CFG_MQTT_HOSTURL`` in "mqtt_config.h" is used instead of the one present in WINC's memory for establishing 
 the connection with the cloud. To switch to the usage of default AWS endpoint present in WINC's memory, disable 
 this custom AWS endpoint URL by setting the macro ``USE_CUSTOM_ENDPOINT_URL`` to '0'.
