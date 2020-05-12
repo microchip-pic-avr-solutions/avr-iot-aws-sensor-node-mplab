@@ -294,6 +294,8 @@ General Out-Of-Box operation is as described below:
      + This will launch the URL: https://avr-iot.com/aws/{ThingName}. 
      + After entering credentials, the **.CFG** file is produced through the web browser. No information is shared through the internet. 
      + Drag and Drop, or Copy and Paste the **WIFI.CFG** file onto the **CURIOSITY** device to load new credentials onto the IoT demonstration board.
+	 
+	   **Note:** The 'Drag and Drop' event sends the credentials in **WIFI.CFG** file to microcontroller using UART2. To prevent the possibility of receiving garbage data, pull-up has been enabled on UART2 Rx pin, which should not be disabled. Disabling the pull-up will leave the pin floating, thus resulting in garbage data reception on UART2.
      
      ![WiFi Config](images/wifiNotepad.png)     
      
