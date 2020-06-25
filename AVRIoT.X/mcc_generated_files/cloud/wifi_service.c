@@ -243,6 +243,8 @@ bool wifi_disconnectFromAp(void)
 }
 
 // Update the system time every CLOUD_NTP_TASK_INTERVAL milliseconds
+// Once time is obtained from NTP server WINC maintains the time internally. 
+// The WINC will re-sync the time with NTP server utmost once per day or on DHCP renewal
 uint32_t ntpTimeFetchTask(void *payload)
 {
     if((strncmp(ntpServerName, CFG_NTP_SERVER, strlen(CFG_NTP_SERVER))) != 0)

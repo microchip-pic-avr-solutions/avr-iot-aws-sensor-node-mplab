@@ -5,7 +5,7 @@
 //Configure the macro "CFG_MQTT_HOSTURL" in "mqtt_config.h" in the
 //event of using custom end point URL(not reading the AWS Endpoint from WINC)
 
-#define AWS_ENDPOINT_LEN (45)
+#define AWS_ENDPOINT_LEN (52)
 
 //Thing Name configuration
 
