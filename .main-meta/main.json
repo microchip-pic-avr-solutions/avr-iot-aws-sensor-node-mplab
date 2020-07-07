@@ -87,17 +87,17 @@
             "AVR-IoT",
             "AVR-IoT WA Development Board"
 
-        ]
-    },
-    "additionalData": {
-        "longDescription": {
-            "metaDataVersion": "1.0.0",
-            "category": "com.microchip.portal.fileRef",
-            "content": {
+        ],
+        "additionalData": {
+            "longDescription": {
                 "metaDataVersion": "1.0.0",
-                "fileName": "./README.md",
-                "mimeType": "text/markdown"
+                "category": "com.microchip.portal.fileRef",
+                "content": {
+                    "metaDataVersion": "1.1.0",
+                    "fileName": "./README.md",
+                    "mimeType": "text/markdown"
+                }
             }
-        }
+        }   
     }
 }
