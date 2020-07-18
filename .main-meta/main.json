@@ -4,7 +4,7 @@
     "content": {
         "metaDataVersion": "1.1.0",
         "name": "com.microchip.mcu8.mplabx.project.avr-iot-aws-sensor-node-mplab",
-        "version": "4.0.0",
+        "version": "4.1.0-rc1",
         "displayName": "AVR IoT AWS Sensor Node MPLAB",
         "projectName": "avr-iot-aws-sensor-node-mplab",
         "shortDescription": "Microchip AVR-IoT WA (Wireless for Amazon Web Services) Application Example",
