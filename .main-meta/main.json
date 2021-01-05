@@ -9,16 +9,16 @@
         "projectName": "avr-iot-aws-sensor-node-mplab",
         "shortDescription": "Microchip AVR-IoT WA (Wireless for Amazon Web Services) Application Example",
         "ide": {
-            "name": "MPLABX",
+            "name": "MPLAB X",
             "semverRange": ">=5.30.0"
         },
         "compiler": [
             {
-                "name": "xc8",
+                "name": "XC8",
                 "semverRange": "^2.10.0"
             },
             {
-                "name": "gcc",
+                "name": "avr-gcc",
                 "semverRange": "^5.4.0"
             }
         ],

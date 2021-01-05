@@ -11,6 +11,7 @@ Devices: \| **ATmega4808(MCU)** \| **WINC1510(Wi-Fi®)** \| **ECC608(CryptoAuthL
    + Below describes the Out of Box (OOB) operation of the development board. 
    + More detailed information can be found further below this document.
    + For accessing production hex files, release notes, and Known Issues please click the [release tab](https://github.com/microchip-pic-avr-solutions/avr-iot-aws-sensor-node-mplab/releases)
+   + If this project is opened in MCC, the code generated out of MCC might be a different version than the one present. If there are changes, the merge window will indicate that along with the change in firmware version number present in cli.c. 
 
 ### Materials
    + Internet Connection Device
